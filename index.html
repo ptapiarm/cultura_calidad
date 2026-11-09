@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estrategia 7.4 · Cultura de Calidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A1A18; --ink-2:#2B2B2B; --muted:#6B6B65; --muted-2:#9A9A94;
+  --paper:#FFFFFF; --card:#ECEBE5; --card-2:#F5F4F0; --line:#C9C8C2; --line-2:#D9D6CE;
+  --accent:#FF6F43; --accent-soft:#FFE6DC;
+  --navy:#1B2F4B; --navy-soft:#E8EDF4;
+  --teal:#2A7F7A; --teal-soft:#E4F1F0;
+  --ochre:#C9822A; --ochre-soft:#FBF0E2;
+  --green:#A9D08E; --green-ink:#385723;
+  --blue:#4472C4;
+  --h1:var(--accent); --h2:var(--navy); --h3:var(--teal); --h4:var(--ochre); --h5:#6B6B65;
+  --wrap:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink-2);font-family:Calibri,Carlito,"Lato",system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+@media (max-width:640px){.wrap{padding:0 16px}}
+h1,h2,h3,h4{color:var(--ink);margin:0;line-height:1.2}
+.eyebrow{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.eyebrow.accent{color:var(--accent)}
+section{padding:72px 0}
+section + section{border-top:1px solid var(--card)}
+.sec-head{margin-bottom:32px}
+.sec-head h2{font-size:clamp(24px,3vw,32px);font-weight:700;margin-top:10px}
+.sec-head p{color:var(--muted);margin:10px 0 0;max-width:780px}
+.num-dot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:13px;flex:none}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:999px;color:#fff;background:var(--ochre)}
+
+/* ---------- NAV ---------- */
+.topnav{position:sticky;top:0;z-index:50;background:rgba(26,26,24,.96);backdrop-filter:blur(6px);border-bottom:1px solid #2f2f2c}
+.topnav .wrap{display:flex;align-items:center;gap:24px;height:52px;overflow-x:auto;scrollbar-width:none}
+.topnav .wrap::-webkit-scrollbar{display:none}
+.topnav .brand{color:#fff;font-weight:700;font-size:13px;white-space:nowrap}
+.topnav .brand b{color:var(--accent)}
+.topnav a{color:#B8B7B0;text-decoration:none;font-size:13px;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent}
+.topnav a:hover,.topnav a.on{color:#fff;border-bottom-color:var(--accent)}
+.topnav .sp{flex:1}
+
+/* ---------- HERO ---------- */
+.hero{background:var(--ink);color:#fff;padding:72px 0 0}
+.hero .eyebrow{color:#D6D4CC}
+.hero h1{color:#fff;font-size:clamp(34px,5.4vw,58px);font-weight:700;margin:40px 0 18px;max-width:820px;letter-spacing:-.01em}
+.hero .sub{color:var(--accent);font-weight:700;font-size:18px}
+.hero .meta{margin-top:56px;display:flex;flex-wrap:wrap;gap:8px 40px;font-size:14px}
+.hero .meta div span{display:block;color:var(--muted-2);font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);margin-top:56px;border-top:1px solid #33332F}
+.kpi{padding:24px 20px 28px;border-right:1px solid #33332F}
+.kpi:last-child{border-right:0}
+.kpi .v{font-size:40px;font-weight:700;color:var(--accent);line-height:1}
+.kpi .l{color:#D6D4CC;font-size:13px;margin-top:8px}
+@media (max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}.kpi{border-bottom:1px solid #33332F}.kpi:nth-child(2n){border-right:0}}
+
+/* ---------- META BAND ---------- */
+.band{background:var(--ink);color:#fff;font-size:14px;padding:14px 20px;display:flex;flex-wrap:wrap;gap:6px 0}
+.band span+span::before{content:"·";margin:0 12px;color:var(--muted-2)}
+
+/* ---------- CONTEXTO ---------- */
+.crumbs{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:12px}
+.crumb{background:var(--card);padding:16px 18px;border-radius:2px}
+.crumb b{display:block;font-size:14px;color:var(--ink)}
+.crumb small{color:var(--muted);font-size:13px}
+.crumb.on{background:var(--accent)}
+.crumb.on b,.crumb.on small{color:#fff}
+.crumbs .arr{align-self:center;color:var(--muted)}
+@media (max-width:760px){.crumbs{grid-template-columns:1fr}.crumbs .arr{display:none}}
+.quote{background:var(--card);padding:36px 32px 24px;margin-top:24px;border-radius:2px}
+.quote p{font-style:italic;font-size:clamp(17px,2vw,20px);color:var(--ink);margin:0;max-width:960px}
+.quote small{display:block;margin-top:24px;color:var(--muted);font-size:12.5px}
+
+.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media (max-width:760px){.grid4{grid-template-columns:1fr}}
+.card{background:var(--card);padding:22px 24px;border-radius:3px}
+.card h3{font-size:16px;display:flex;align-items:center;gap:12px}
+.card p{color:var(--ink-2);font-size:14.5px;margin:14px 0 0}
+
+.lines{display:grid;gap:18px}
+.line{background:var(--card);display:grid;grid-template-columns:90px 1fr;padding:24px;border-radius:3px;align-items:start}
+.line .n{font-size:32px;font-weight:700;color:var(--accent);line-height:1}
+.line h3{font-size:18px}
+.line .d{color:var(--ink-2);font-size:14.5px;margin-top:4px}
+.line .c{color:var(--muted);font-size:13px;margin-top:10px}
+
+/* ---------- MODELO ---------- */
+.model{display:grid;grid-template-columns:200px 1fr 200px;gap:20px;align-items:stretch}
+@media (max-width:960px){.model{grid-template-columns:1fr}}
+.io{background:var(--card-2);padding:22px;border-radius:6px;align-self:center}
+.io h4{font-size:16px;margin-bottom:12px;color:var(--navy);text-align:center}
+.io.out h4{color:var(--teal)}
+.io ul{margin:0;padding-left:18px;font-size:14px}
+.io li{margin-bottom:8px}
+.levels{display:grid;gap:10px}
+.level{display:grid;grid-template-columns:130px 1fr;gap:10px}
+@media (max-width:640px){.level{grid-template-columns:1fr}}
+.lvl-tag{color:#fff;border-radius:4px;padding:14px 10px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.lvl-tag b{font-size:12.5px;letter-spacing:.04em}
+.lvl-tag small{font-size:12px;opacity:.85;margin-top:8px}
+.mechs{display:grid;gap:10px}
+.mechs.two{grid-template-columns:1fr 1fr}
+@media (max-width:640px){.mechs.two{grid-template-columns:1fr}}
+.mech{border:1.5px solid;border-radius:6px;padding:14px 16px;position:relative}
+.mech h5{margin:0;font-size:15px;display:flex;gap:10px;align-items:center;padding-right:96px}
+.mech h5 .num-dot{background:var(--navy)}
+.mech p{margin:10px 0 0;font-size:13.5px;color:var(--ink-2)}
+.mech .pill{position:absolute;top:14px;right:14px}
+.mech.g{background:var(--green);border-color:#7EA765}.mech.g h5{color:var(--green-ink)}
+.mech.n{background:var(--navy-soft);border-color:var(--navy)}.mech.n h5{color:var(--navy)}
+.mech.t{background:var(--teal-soft);border-color:var(--teal)}.mech.t h5{color:var(--teal)}.mech.t .num-dot{background:var(--teal)}
+.mech.o{background:var(--ochre-soft);border-color:var(--ochre)}.mech.o h5{color:var(--ochre)}.mech.o .num-dot{background:var(--ochre)}
+.culture{background:var(--blue);color:#fff;text-align:center;font-weight:700;letter-spacing:.03em;padding:10px;border-radius:4px;font-size:14px}
+.model-note{color:var(--muted);font-size:13px;margin-top:18px}
+
+/* ---------- GANTT ---------- */
+.toolbar{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-bottom:18px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.seg button{font:inherit;font-size:13px;background:#fff;border:0;padding:7px 14px;cursor:pointer;color:var(--ink-2);border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--ink);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:12.5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px 5px 8px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;color:var(--ink-2)}
+.chip i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.chip.off{opacity:.4}
+.search{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:4px;padding:7px 12px;min-width:220px}
+.tb-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-right:8px}
+
+.gantt-scroll{overflow-x:auto;border:1px solid var(--line-2);border-radius:4px;background:#fff}
+table.gantt{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:13px}
+.gantt th,.gantt td{padding:0;height:34px;border-bottom:1px solid #EFEEE9}
+.gantt .lab{position:sticky;left:0;z-index:3;background:#fff;width:360px;min-width:360px;max-width:360px;padding:6px 14px;border-right:1px solid var(--line-2);text-align:left;vertical-align:middle}
+.gantt .resp{position:sticky;left:360px;z-index:3;background:#fff;width:150px;min-width:150px;padding:6px 10px;border-right:1px solid var(--line-2);color:var(--muted);font-size:12px;vertical-align:middle}
+.gantt thead th{background:var(--ink);color:#fff;font-weight:700;font-size:11px;position:sticky;top:0}
+.gantt thead .lab,.gantt thead .resp{background:var(--ink);color:#fff;z-index:4}
+.gantt thead tr.yr th{font-size:13px;border-right:1px solid #3a3a36;height:30px}
+.gantt thead tr.mo th{font-weight:400;color:#D6D4CC;height:26px;width:var(--cw);min-width:var(--cw);text-align:center;border-right:1px solid #2a2a27}
+.gantt td.m{width:var(--cw);min-width:var(--cw);border-right:1px solid #F3F2EE;position:relative}
+.gantt td.m.ys{border-left:1px solid #D9D6CE}
+.gantt tr.hito td{background:var(--card);height:38px;font-weight:700;color:var(--ink)}
+.gantt tr.hito .lab,.gantt tr.hito .resp{background:var(--card)}
+.gantt tr.hito .lab{cursor:pointer;user-select:none}
+.gantt tr.hito .lab .tw{display:inline-block;width:14px;color:var(--muted);transition:transform .15s}
+.gantt tr.hito.closed .lab .tw{transform:rotate(-90deg)}
+.hbadge{display:inline-grid;place-items:center;min-width:28px;height:22px;padding:0 6px;border-radius:999px;color:#fff;font-size:11px;font-weight:700;margin-right:8px}
+.gantt tr.act .lab{font-weight:400}
+.gantt tr.act .lab .an{color:var(--muted-2);display:inline-block;width:22px;font-variant-numeric:tabular-nums}
+.gantt tr.act:hover td{background:#FAF9F6}
+.gantt tr.act:hover .lab,.gantt tr.act:hover .resp{background:#FAF9F6}
+.bar{position:absolute;top:50%;height:16px;margin-top:-8px;border-radius:3px;z-index:1}
+.bar.dot{border-radius:50%;width:14px !important;height:14px;margin-top:-7px}
+.span{position:absolute;top:50%;height:4px;margin-top:-2px;border-radius:2px;opacity:.22;z-index:0}
+.today{position:absolute;top:0;bottom:0;width:2px;background:var(--accent);z-index:2;pointer-events:none}
+.today-tag{position:absolute;top:-22px;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.gantt-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;font-size:12.5px;color:var(--muted)}
+.gantt-legend span{display:inline-flex;align-items:center;gap:8px}
+.lg-bar{width:22px;height:10px;border-radius:2px;background:var(--muted)}
+.lg-dot{width:12px;height:12px;border-radius:50%;background:var(--muted)}
+.lg-today{width:2px;height:14px;background:var(--accent)}
+@media (max-width:640px){.gantt .lab{width:190px;min-width:190px;max-width:190px;font-size:12px;padding:6px 8px}.gantt .resp{display:none}}
+#tip{position:fixed;z-index:100;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;padding:10px 12px;border-radius:4px;max-width:320px;opacity:0;transition:opacity .1s;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+#tip b{display:block;margin-bottom:4px}
+#tip span{color:#D6D4CC}
+
+/* overview strip */
+.phases{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:36px;position:relative}
+.phases::before{content:"";position:absolute;left:0;right:0;top:62px;height:1.5px;background:var(--line)}
+.phase{position:relative;text-align:center}
+.phase .yr{font-weight:700;font-size:16px;color:var(--ink);height:34px}
+.phase .hb{width:38px;height:38px;border-radius:50%;color:#fff;display:grid;place-items:center;margin:8px auto 14px;font-weight:700;font-size:13px;position:relative;z-index:1;box-shadow:0 0 0 5px #fff}
+.phase .box{background:var(--card);padding:14px;text-align:left;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;border-top:3px solid}
+.phase .box b{font-size:14px;color:var(--ink)}
+.phase .box small{color:var(--muted);font-size:12px;margin-top:12px}
+.phase .box em{font-style:normal;color:var(--muted);font-size:12px}
+@media (max-width:860px){.phases{grid-template-columns:1fr 1fr}.phases::before{display:none}}
+
+/* ---------- HITO 1 ---------- */
+.h1-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+@media (max-width:760px){.h1-summary{grid-template-columns:1fr}}
+.h1-summary .card{display:flex;gap:16px;align-items:center}
+.h1-summary .big{font-size:40px;font-weight:700;color:var(--accent);line-height:1;min-width:46px}
+.h1-summary .card b{color:var(--ink);font-size:15px}
+.h1-summary .card small{display:block;color:var(--muted);font-size:13px}
+.sub-group{margin-top:28px}
+.sub-group-h{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.sub-group-h h3{font-size:18px}
+.sub-group-h small{color:var(--muted);font-size:13px}
+.subp{background:var(--card);border-radius:3px;margin-bottom:8px}
+.subp summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:34px 1fr 150px 120px 22px;gap:14px;align-items:center;padding:14px 18px}
+.subp summary::-webkit-details-marker{display:none}
+.subp summary .n{color:var(--muted-2);font-weight:700;font-variant-numeric:tabular-nums}
+.subp summary .t b{display:block;color:var(--ink);font-size:14.5px}
+.subp summary .t small{color:var(--muted);font-size:12.5px}
+.subp summary .u{font-size:12px;color:var(--muted)}
+.subp summary .u b{display:block;color:var(--ink-2);font-size:13px}
+.subp summary .dl{text-align:right;font-size:13px}
+.subp summary .dl b{color:var(--accent);display:block}
+.subp summary .dl small{color:var(--muted);font-size:11.5px}
+.subp summary .chev{color:var(--muted);transition:transform .15s}
+.subp[open] summary .chev{transform:rotate(90deg)}
+.subp .body{padding:0 18px 18px 66px;display:grid;grid-template-columns:1fr 1fr;gap:18px;font-size:13.5px}
+.subp .body h6{margin:0 0 4px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.subp .body p{margin:0;white-space:pre-line}
+@media (max-width:760px){.subp summary{grid-template-columns:28px 1fr 22px}.subp summary .u,.subp summary .dl{display:none}.subp .body{grid-template-columns:1fr;padding-left:18px}}
+.status{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;margin-top:3px}
+.st-ok{background:var(--teal-soft);color:var(--teal)}
+.st-run{background:var(--accent-soft);color:#C4471F}
+.st-late{background:#F9D9D2;color:#9E2B12}
+
+/* ---------- CAE ---------- */
+.cae{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative}
+.cae::before{content:"";position:absolute;left:0;right:0;top:58px;height:1.5px;background:var(--line)}
+.cae-i{text-align:center;position:relative}
+.cae-i .mo{color:var(--accent);font-weight:700;letter-spacing:.14em;font-size:13px}
+.cae-i .num-dot{width:34px;height:34px;font-size:14px;margin:14px auto 22px;position:relative;box-shadow:0 0 0 5px #fff}
+.cae-i .box{background:var(--card);border-top:3px solid var(--accent);padding:22px;text-align:left;min-height:170px}
+.cae-i .box svg{width:44px;height:44px}
+.cae-i .box .eyebrow{margin-top:14px;font-size:10.5px}
+.cae-i .box b{display:block;color:var(--ink);font-size:16px;margin-top:4px}
+.cae-i.past .box{opacity:.65}
+.cae-i.now .box{box-shadow:0 0 0 2px var(--accent)}
+@media (max-width:760px){.cae{grid-template-columns:1fr}.cae::before{display:none}}
+
+/* ---------- INDICADORES ---------- */
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{background:var(--ink);color:#fff;text-align:left;padding:16px;font-weight:700}
+.tbl td{padding:16px;border:1px solid var(--line-2);vertical-align:top}
+.tbl td:first-child{font-weight:700;color:var(--ink)}
+.tbl-wrap{overflow-x:auto}
+
+/* ---------- FOOT ---------- */
+footer{background:var(--ink);color:#fff;padding:64px 0 40px}
+footer h2{color:#fff;font-size:clamp(26px,3.6vw,38px);margin:20px 0 10px}
+footer p{color:#D6D4CC;margin:0}
+footer .fine{color:var(--muted-2);font-size:12.5px;margin-top:48px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media print{
+  .topnav,.toolbar{display:none}
+  section{padding:32px 0;break-inside:avoid-page}
+  .gantt-scroll{overflow:visible}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <div class="brand"><b>7.4</b> · Cultura de Calidad</div>
+    <span class="sp"></span>
+    <a href="#contexto">Contexto</a>
+    <a href="#lineas">Líneas de acción</a>
+    <a href="#modelo">Modelo</a>
+    <a href="#gantt">Carta Gantt</a>
+    <a href="#hito1">Hito 1</a>
+    <a href="#cae">Avances CAE</a>
+    <a href="#indicadores">Indicadores</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Plan Estratégico Institucional 2030 &nbsp;·&nbsp; Dimensión 4 · Habilitantes Estratégicos</div>
+    <h1>Cultura de calidad y autorregulación institucional</h1>
+    <div class="sub">Estrategia 7.4 &nbsp;·&nbsp; Plan de trabajo</div>
+    <div class="meta">
+      <div><span>Responsable</span>Dirección de Gestión y Desarrollo (DGD)</div>
+      <div><span>Horizonte del plan</span>Septiembre 2026 – abril 2027</div>
+      <div><span>Horizonte del modelo</span>2026 – 2030</div>
+      <div><span>Estado al</span><span id="hoyTxt" style="color:#fff;font-size:14px"></span></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="v">2</div><div class="l">Líneas de acción</div></div>
+      <div class="kpi"><div class="v">5</div><div class="l">Hitos del modelo</div></div>
+      <div class="kpi"><div class="v">26</div><div class="l">Actividades en la carta Gantt</div></div>
+      <div class="kpi"><div class="v">7</div><div class="l">Mecanismos del sistema de calidad</div></div>
+      <div class="kpi"><div class="v" id="kpiH1">9</div><div class="l" id="kpiH1l">Subproductos del Hito 1</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ CONTEXTO ============ -->
+<section id="contexto">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Dónde se inserta</div>
+      <h2>Una estrategia dentro del OE7</h2>
+    </div>
+    <div class="crumbs">
+      <div class="crumb"><b>Dimensión 4</b><small>Habilitantes Estratégicos</small></div>
+      <div class="arr">›</div>
+      <div class="crumb"><b>Objetivo Estratégico 7</b><small>Sustentabilidad y Excelencia Operacional</small></div>
+      <div class="arr">›</div>
+      <div class="crumb on"><b>Estrategia 7.4</b><small>Cultura de Calidad</small></div>
+    </div>
+    <div class="quote">
+      <p>“Profundizar una cultura institucional de calidad y autorregulación orientada al mejoramiento continuo de las funciones académicas y de gestión con miras al logro de la acreditación de excelencia al año 2030.”</p>
+      <small>Enunciado de la Estrategia 7.4 &nbsp;·&nbsp; Responsable: Dirección de Gestión y Desarrollo</small>
+    </div>
+
+    <div class="sec-head" style="margin-top:64px">
+      <div class="eyebrow">Qué busca</div>
+      <h2>Un sistema de calidad apropiado por las unidades académicas</h2>
+      <p>La estrategia profundiza la cultura de calidad y autorregulación institucional, con miras a la acreditación de excelencia al año 2030.</p>
+    </div>
+    <div class="grid4">
+      <div class="card"><h3><span class="num-dot">1</span>Alcance institucional</h3><p>Fortalecimiento de los sistemas de aseguramiento de la calidad en docencia, investigación, vinculación con el medio y gestión.</p></div>
+      <div class="card"><h3><span class="num-dot">2</span>Articulación con facultades</h3><p>El sistema no opera solo desde el nivel central: requiere apropiación y uso activo por parte de facultades y programas.</p></div>
+      <div class="card"><h3><span class="num-dot">3</span>Seguimiento permanente</h3><p>Monitoreo semestral de hitos y acciones, seguimiento anual de metas, evaluación intermedia y evaluación final del período.</p></div>
+      <div class="card"><h3><span class="num-dot">4</span>Indicadores centrales</h3><p>La acreditación de programas y la mejora de la experiencia de la comunidad universitaria como indicadores del avance.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LÍNEAS ============ -->
+<section id="lineas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Qué hacemos</div>
+      <h2>Dos líneas de acción, lideradas por la DGD</h2>
+    </div>
+    <div class="lines">
+      <div class="line"><div class="n">01</div><div><h3>Actualización del SMCI</h3><div class="d">Sistema de Mejoramiento Continuo Institucional</div><div class="c">Colaboran: VRA · VRII · VRIV · Unidades Académicas · Comunicaciones</div></div></div>
+      <div class="line"><div class="n">02</div><div><h3>Fortalecimiento de la autorregulación</h3><div class="d">Capacidades de autorregulación y seguimiento de programas académicos</div><div class="c">Colaboran: VRA · Unidades Académicas</div></div></div>
+    </div>
+    <div class="band" style="margin-top:36px"><span>Meta 2026: actualización del SMCI</span><span>Meta 2030: despliegue del SMCI en todos los niveles</span><span>Fuente: Plan CNA – D3, Socialización SMCI</span></div>
+  </div>
+</section>
+
+<!-- ============ MODELO ============ -->
+<section id="modelo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Modelo conceptual</div>
+      <h2>Sistema de Gestión de Calidad</h2>
+      <p>Mecanismos articulados en tres niveles de la calidad: gestión institucional, aseguramiento en carreras y programas, y control de calidad en las funciones misionales.</p>
+    </div>
+    <div class="model">
+      <div class="io">
+        <h4>Entradas</h4>
+        <ul><li>Misión, visión y PEI</li><li>Criterios y estándares de acreditación CNA</li><li>Normas ISO 9001 / ISO 21001</li><li>Requerimientos de estudiantes y partes interesadas</li></ul>
+      </div>
+      <div class="levels">
+        <div class="level">
+          <div class="lvl-tag" style="background:var(--navy)"><b>GESTIÓN DE CALIDAD</b><small>Institucional</small></div>
+          <div class="mechs">
+            <div class="mech g"><h5><span class="num-dot">1</span>Plan Estratégico Institucional PEI 2030</h5><p>Plan estratégico a nivel central, desplegado en las facultades con un Sistema de Seguimiento.</p></div>
+            <div class="mech n"><h5><span class="num-dot">2</span>Gestión de Calidad de los Procesos de Gestión</h5><p>Procesos estratégicos, operativos y misionales: gestión institucional, investigación, vinculación con el medio y docencia. Diseño y rediseño, auditorías de procesos y monitoreo de indicadores, sobre norma ISO 9001 o ISO 21001.</p></div>
+          </div>
+        </div>
+        <div class="level">
+          <div class="lvl-tag" style="background:var(--teal)"><b>ASEGURAMIENTO DE CALIDAD</b><small>Carreras y programas</small></div>
+          <div class="mechs two">
+            <div class="mech t"><h5><span class="num-dot">3</span>Aseguramiento de Calidad de la Oferta Académica</h5><p>Autoevaluación de carreras y programas de pre y postgrado. Incluye MAPA y seguimiento estandarizado de planes de mejora.</p></div>
+            <div class="mech t"><h5><span class="num-dot">4</span>Seguimiento de Calidad de Postgrado</h5><p>Seguimiento permanente de cada programa de postgrado.</p><span class="pill">NUEVO 2026</span></div>
+          </div>
+        </div>
+        <div class="level">
+          <div class="lvl-tag" style="background:var(--ochre)"><b>CONTROL DE CALIDAD</b><small>Funciones misionales</small></div>
+          <div class="mechs">
+            <div class="mech o"><h5><span class="num-dot">5</span>Logro del Aprendizaje y Auditoría Académica</h5><p><b>Enseñanza y aprendizaje.</b> Assessment: recopilación, análisis e interpretación continua de evidencia del aprendizaje. Auditoría académica: revisión formal, sistemática y objetiva de procesos educativos, normas y programas.</p><span class="pill">PROPUESTO</span></div>
+            <div class="mech o"><h5><span class="num-dot">6</span>Control de conformidad de iniciativas y productos VcM</h5><p><b>Vinculación con el Medio.</b> Validación de conformidad del producto o servicio por parte de la contraparte externa, mediante revisión del entregable, cumplimiento de compromisos y aceptación formal previa al cierre de la iniciativa.</p><span class="pill">PROPUESTO</span></div>
+            <div class="mech o"><h5><span class="num-dot">7</span>Control de integridad y conformidad de productos I+D+i+CA</h5><p><b>I+D+i+CA.</b> Revisión de papers y productos de investigación por académicos expertos externos a la Universidad, complementada con control de similitud/plagio previo a su publicación o presentación.</p><span class="pill">PROPUESTO</span></div>
+          </div>
+        </div>
+        <div class="culture">CULTURA DE CALIDAD Y MEJORA CONTINUA</div>
+      </div>
+      <div class="io out">
+        <h4>Resultados</h4>
+        <ul><li>Mejora continua de procesos y programas</li><li>Acreditación institucional y de carreras y programas</li><li>Logro del perfil de egreso</li><li>Toma de decisiones basada en evidencia</li></ul>
+      </div>
+    </div>
+    <p class="model-note">Los referentes externos e internos alimentan el sistema; los resultados retroalimentan la planificación mediante el ciclo PDCA.</p>
+  </div>
+</section>
+
+<!-- ============ GANTT ============ -->
+<section id="gantt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Planificación general del modelo de aseguramiento de la calidad</div>
+      <h2>Carta Gantt 2026 a 2030</h2>
+    </div>
+
+    <div class="phases" id="phases"></div>
+
+    <div class="toolbar">
+      <div><span class="tb-label">Periodo</span>
+        <div class="seg" id="rangeSeg">
+          <button data-r="plan" class="on">Plan de trabajo</button>
+          <button data-r="2627">2026–2027</button>
+          <button data-r="all">2026–2030</button>
+        </div>
+      </div>
+      <div class="chips" id="hitoChips"></div>
+      <input class="search" id="q" type="search" placeholder="Buscar actividad o responsable…">
+    </div>
+    <div class="gantt-scroll" id="gscroll"><table class="gantt" id="gtable"></table></div>
+    <div class="gantt-legend">
+      <span><i class="lg-bar"></i>Periodo de ejecución</span>
+      <span><i class="lg-dot"></i>Hito puntual / ciclo recurrente</span>
+      <span><i class="lg-today"></i>Hoy</span>
+      <span>Haz clic en un hito para contraer o expandir sus actividades.</span>
+    </div>
+    <div class="band" style="margin-top:36px"><span>Meta 2026: actualización del SMCI</span><span>Meta 2030: despliegue del SMCI en todos los niveles</span><span>Fuente: Plan CNA – D3, Socialización SMCI</span></div>
+  </div>
+</section>
+
+<!-- ============ HITO 1 ============ -->
+<section id="hito1">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow accent" style="display:flex;align-items:center;gap:10px"><span class="hbadge" style="background:var(--h1)">H1</span>Detalle del hito en curso</div>
+      <h2>Hito 1: Diagnóstico del sistema</h2>
+      <p>Subproductos del diagnóstico, con responsable, unidad, participantes, propósito y plazo. Todos se entregan entre el 30 de noviembre y el 31 de diciembre de 2026.</p>
+    </div>
+    <div class="h1-summary">
+      <div class="card"><div class="big">9</div><div><b>Subproductos de diagnóstico</b><small>Entre el 30 de noviembre y el 31 de diciembre de 2026</small></div></div>
+      <div class="card"><div class="big">1</div><div><b>Producto de diagnóstico general</b><small>Informe integrado del SMCI</small></div></div>
+      <div class="card"><div class="big" id="daysLeft">—</div><div><b id="daysLeftL">Días al primer plazo</b><small id="daysLeftS">30 de noviembre de 2026</small></div></div>
+    </div>
+    <div id="h1list"></div>
+    <p class="model-note">UGC: Unidad de Gestión de la Calidad · UAC: Unidad de Aseguramiento de la Calidad · DGD: Dirección de Gestión y Desarrollo</p>
+  </div>
+</section>
+
+<!-- ============ CAE ============ -->
+<section id="cae">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" style="display:flex;align-items:center;gap:10px">Presentación de avances ante CAE <span class="hbadge" style="background:var(--h1)">H1</span></div>
+      <h2>Tres entregas de avance del Hito 1</h2>
+    </div>
+    <div class="cae" id="caeRow">
+      <div class="cae-i" data-m="2026-11"><div class="mo">NOVIEMBRE 2026</div><div class="num-dot">1</div><div class="box"><svg overflow="hidden" viewBox="0, 0, 96, 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" version="1.1"><style></style><g id="Icons"><path fill="#FF6F43" d="M48 20 C49.933 20 51.5 18.433 51.5 16.5 C51.5 14.567 49.933 13 48 13 L47.9 13 C45.9974 13.034 44.4788 14.5972 44.5 16.5 C44.5033 18.4316 46.0684 19.9967 48 20 z M47.934 15 L48 15 C48.8284 15 49.5 15.6716 49.4999 16.5001 C49.4999 17.3285 48.8283 18 47.9999 18 C47.1714 18 46.4999 17.3284 46.4999 16.4999 C46.4999 16.4953 46.5 16.4906 46.5 16.486 C46.4872 15.6803 47.1283 15.0159 47.934 15 z" /><path fill="#FF6F43" d="M78 18.979 C78 16.7699 76.2091 14.979 74 14.979 L59 14.979 L59 12.979 C58.9961 10.2192 56.7598 7.98286 54 7.979 L42 7.979 C39.2399 7.98231 37.0033 10.2189 37 12.979 L37 14.979 L22 14.979 C19.792 14.9818 18.0028 16.771 18 18.979 L18 84 C18 86.2091 19.7909 88 22 88 L74 88 C76.2091 88 78 86.2091 78 84 z M35 16.979 L39 16.979 L39 12.979 C39 11.3221 40.3431 9.979 42 9.979 L54 9.979 C55.6569 9.979 57 11.3221 57 12.979 L57 16.979 L61 16.979 L61 25 L35 25 z M74 86 L22 86 C20.8954 86 20 85.1046 20 84 L20 18.979 C20 17.8744 20.8954 16.979 22 16.979 L33 16.979 L33 27 L63 27 L63 16.979 L74 16.979 C75.1046 16.979 76 17.8744 76 18.979 L76 84 C76 85.1046 75.1046 86 74 86 z" /></g></svg><div class="eyebrow">Hito 1</div><b>Planificación del Modelo de Calidad</b></div></div>
+      <div class="cae-i" data-m="2026-12"><div class="mo">DICIEMBRE 2026</div><div class="num-dot">2</div><div class="box"><svg overflow="hidden" viewBox="0, 0, 96, 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" version="1.1"><style></style><g id="Icons"><path fill="#FF6F43" d="M71.3 61.9 C69.1 59.7 65.5 59.8 62.8 61.9 L58.6 57.7 C69.5 45.9 68.8 27.6 57 16.7 C45.2 5.8 27 6.6 16.1 18.4 C5.2 30.2 6 48.5 17.7 59.4 C28.9 69.8 46.2 69.7 57.3 59.2 L61.5 63.4 C60.6 64.5 60.1 65.9 59.9 67.3 C59.7 69 60.3 70.7 61.5 71.9 L75.6 86 C76.7 87 78.1 87.6 79.6 87.6 C81.6 87.6 83.4 86.8 84.8 85.4 C86.1 84.2 86.9 82.5 87 80.7 C87.2 79 86.6 77.3 85.4 76.1 L71.3 61.9 z M18.4 57.1 C7.9 46.6 7.9 29.5 18.4 18.9 C28.9 8.3 46 8.4 56.6 18.9 C67.2 29.4 67.1 46.5 56.6 57.1 C51.5 62.2 44.7 65 37.5 65 C30.4 65 23.5 62.2 18.4 57.1 z M83.3 83.8 C81.4 85.7 78.5 86 76.9 84.4 L62.9 70.4 C62.1 69.6 61.8 68.5 61.9 67.4 C62 66.1 62.6 64.9 63.6 64 C64.6 63 66 62.4 67.4 62.3 C68.4 62.3 69.3 62.6 70 63.3 L84 77.4 C84.8 78.2 85.1 79.3 85 80.4 C84.8 81.7 84.3 82.9 83.3 83.8 C83.3 83.8 83.3 83.8 83.3 83.8 z" /></g></svg><div class="eyebrow">Hito 1</div><b>Diagnóstico general del Modelo</b></div></div>
+      <div class="cae-i" data-m="2027-01"><div class="mo">ENERO 2027</div><div class="num-dot">3</div><div class="box"><svg overflow="hidden" viewBox="0, 0, 96, 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" version="1.1"><style></style><g id="Icons"><path fill="#FF6F43" d="M52.193 85.025 C47.05 87.085 45.966 85.57 44.467 83.476 C43.332 81.889 41.919 79.915 38.656 79.616 C35.478 79.316 32.75 80.897 30.107 82.416 C26.131 84.705 22.376 86.869 16.592 84.138 C16.0925 83.9022 15.4963 84.116 15.2605 84.6155 C15.0247 85.115 15.2385 85.7112 15.738 85.947 C22.466 89.122 27.055 86.48 31.105 84.147 C33.587 82.719 35.934 81.37 38.474 81.602 C40.825 81.818 41.759 83.123 42.841 84.634 C43.988 86.234 45.241 87.99 48.158 87.99 C49.8067 87.9227 51.4279 87.5454 52.937 86.878 C53.4501 86.6725 53.6995 86.0901 53.494 85.577 C53.2886 85.0639 52.7061 84.8145 52.193 85.02 z" /><path fill="#FF6F43" d="M80.024 12.366 C78.059 9.318 74.22 7.64 69.215 7.64 C68.1051 7.64358 66.9965 7.71773 65.896 7.862 C63.5589 8.16213 61.3913 9.24121 59.743 10.925 C59.0955 10.123 58.0028 9.83324 57.043 10.209 C52.4809 12.0261 48.1688 14.417 44.211 17.324 C39.7121 20.566 35.5836 24.293 31.9 28.438 C30.0499 30.5527 28.7787 33.1104 28.21 35.862 C27.3121 35.6488 26.3849 36.0777 25.966 36.9 C23.666 41.288 21.102 48.285 20.688 53.128 C20.322 57.428 21.926 61.108 24.775 62.517 L25.204 62.728 C23.504 65.388 17.532 75.096 15.346 83.282 C17.0249 81.1684 18.8397 79.1665 20.779 77.289 C20.779 77.289 21.795 72.714 27.944 64.054 C28.889 64.4576 29.9064 64.6642 30.934 64.661 C32.4885 64.6042 34.0282 64.3372 35.511 63.867 C43.005 61.786 48.182 54.68 48.399 54.378 C48.9347 53.632 48.8934 52.6171 48.299 51.917 C50.6866 50.863 52.8013 49.2765 54.481 47.279 C56.3911 44.9993 58.4844 42.8795 60.74 40.941 C62.683 39.272 64.96 37.62 67.37 35.87 C68.576 34.994 69.823 34.089 71.027 33.179 C71.7788 32.6116 72.124 31.6535 71.907 30.737 C71.8725 30.5941 71.8253 30.4545 71.766 30.32 C72.1047 30.2567 72.4423 30.1847 72.779 30.104 C74.9034 29.5819 76.8131 28.4127 78.244 26.758 C82.447 21.894 83.045 17.051 80.024 12.366 z M76.732 25.452 C75.5767 26.7932 74.0315 27.7403 72.312 28.161 C70.9818 28.482 69.6184 28.6445 68.25 28.645 C66.5624 28.6459 64.8842 28.3945 63.271 27.899 C63.2536 27.8934 63.2353 27.8907 63.217 27.891 C63.1447 27.8909 63.0787 27.9321 63.047 27.997 C63.0325 28.0282 63.0263 28.0627 63.029 28.097 C63.0357 28.1514 63.0656 28.2003 63.111 28.231 C65.08 29.5693 67.3075 30.4802 69.65 30.905 C69.8573 30.9378 69.9988 31.1324 69.966 31.3397 C69.9508 31.4354 69.8997 31.5217 69.823 31.581 C66.293 34.248 62.462 36.825 59.438 39.421 C57.1009 41.4289 54.9323 43.6249 52.954 45.987 C50.1707 49.32 46.0641 51.2625 41.722 51.3 C41.0288 51.3004 40.3365 51.2486 39.651 51.145 L39.524 51.126 C39.5144 51.125 39.5046 51.125 39.495 51.126 C39.3912 51.1256 39.3067 51.2095 39.3064 51.3134 C39.3061 51.3855 39.3472 51.4514 39.412 51.483 C41.7062 52.6025 44.2223 53.193 46.775 53.211 C46.775 53.211 41.875 60.023 34.975 61.939 C33.6652 62.3562 32.3062 62.599 30.933 62.661 C30.056 62.6722 29.1891 62.473 28.405 62.08 L26.373 61.08 C31.4293 52.0437 37.5741 43.6612 44.67 36.12 C48.0732 32.7131 51.7731 29.6162 55.726 26.866 C55.8023 26.8105 55.8294 26.7092 55.791 26.623 C55.7495 26.5386 55.6532 26.4963 55.563 26.523 C54.7915 26.7364 54.0556 27.0622 53.379 27.49 C48.5722 30.5405 44.137 34.1404 40.163 38.217 C35.178 43.21 28.263 53.37 24.5 59.83 C23.0202 57.9968 22.3621 55.6343 22.681 53.3 C23.063 48.834 25.507 42.078 27.748 37.811 L27.748 37.811 C28.2134 39.9211 29.0761 41.9234 30.29 43.711 C30.3252 43.7625 30.3836 43.7932 30.446 43.793 C30.474 43.7927 30.5016 43.7866 30.527 43.775 C30.611 43.7347 30.6533 43.6394 30.627 43.55 C30.2693 42.386 30.0386 41.1867 29.939 39.973 C29.6706 36.2381 30.9199 32.5529 33.404 29.751 C36.9881 25.7188 41.0057 22.0939 45.384 18.942 C49.2049 16.1368 53.367 13.8286 57.77 12.073 C57.813 12.0559 57.8588 12.0471 57.905 12.047 C58.1154 12.0523 58.2815 12.2272 58.2762 12.4375 C58.2755 12.464 58.2721 12.4903 58.266 12.516 C57.852 14.3596 57.7482 16.2593 57.959 18.137 C57.98 18.322 58.004 18.51 58.031 18.695 C58.0444 18.787 58.123 18.8555 58.216 18.856 L58.216 18.856 C58.3069 18.855 58.3841 18.7895 58.4 18.7 C58.5899 17.4723 58.9149 16.2693 59.369 15.113 C60.5048 12.2568 63.1005 10.2415 66.149 9.849 C67.1646 9.71495 68.1877 9.64614 69.212 9.643 C73.478 9.643 76.732 10.958 78.34 13.452 C81.2 17.875 79.885 21.8 76.732 25.452 z" /></g></svg><div class="eyebrow">Hito 1</div><b>Primer borrador del Modelo ajustado</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INDICADORES ============ -->
+<section id="indicadores">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Indicadores</div>
+      <h2>Metas 2026 y 2030</h2>
+    </div>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Indicador</th><th>Meta 2026</th><th>Meta 2030</th><th>Fuente</th></tr></thead>
+      <tbody>
+        <tr><td>SMCI</td><td>Actualización del SMCI</td><td>Despliegue del SMCI en todos los niveles</td><td>Plan CNA – D3: Socialización SMCI</td></tr>
+        <tr><td>MAPA o similar</td><td>MAPA actualizado</td><td>Despliegue del MAPA</td><td>Plan CNA – D3: Consolidación MAPA</td></tr>
+        <tr><td>Implementación del plan de trabajo</td><td>Plan de fortalecimiento implementado</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="eyebrow accent">Estrategia 7.4 &nbsp;·&nbsp; Dirección de Gestión y Desarrollo</div>
+    <h2>Cultura de calidad y autorregulación institucional</h2>
+    <p>Rumbo a la acreditación de excelencia 2030</p>
+    <div class="fine"><span>Horizonte del plan: septiembre 2026 – abril 2027</span><span>Estrategia 7.4 · DGD UAH</span></div>
+  </div>
+</footer>
+
+<div id="tip"></div>
+
+<script>
+/* ===================== DATOS (consolidados del Excel "Planificación Modelo de Calidad") ===================== */
+// Índice de mes 0 = marzo 2026 … 57 = diciembre 2030
+const START = {y:2026, m:2}; // 0-based month (marzo)
+const MONTHS = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEPT','OCT','NOV','DIC'];
+const MONTHS_L = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const R = (a,b)=>Array.from({length:b-a+1},(_,i)=>a+i);
+
+const HITOS = [
+  {id:'H1', name:'Diagnóstico del sistema', prod:'Informe de diagnóstico', color:'var(--h1)', acts:[
+    {n:1, t:'Diagnóstico interno: revisión de la situación del SMCI, sus mecanismos formales e informales y su estado de articulación', r:'Pedro / Fernando', m:[7,8,9]},
+    {n:2, t:'Diagnóstico externo: bench y entrevistas a expertos en calidad', r:'Caro', m:[7,8,9]},
+    {n:3, t:'Revisión de CyE de calidad CNA nivel 3 / orientaciones CNA para postgrados (magíster y doctorados) y carreras de pedagogías', r:'Paula y Pablo', m:[8,9]},
+    {n:4, t:'Plan de Mejora Institucional (PMI)', r:'Caro', m:[8,9]},
+  ]},
+  {id:'H2', name:'Rediseño del sistema', prod:'Modelo y sus mecanismos', color:'var(--h2)', acts:[
+    {n:5, t:'Diseñar el modelo, principios y sus mecanismos', r:'DGD', m:[8,9]},
+    {n:6, t:'Definir gobernanza del sistema', r:'DGD / VRA', m:[10]},
+    {n:7, t:'Modificar política de calidad', r:'DGD', m:[10,12]},
+    {n:8, t:'Elaborar documentación: procedimientos, manuales, etc.', r:'DGD', m:[12,13]},
+    {n:9, t:'Presentar a CAE (Coordinación Académica Estratégica)', r:'DGD', m:[12,13]},
+    {n:10, t:'Presentar a comité de rectoría', r:'DGD', m:[13]},
+    {n:11, t:'Presentar a consejo académico', r:'DGD', m:[14]},
+  ]},
+  {id:'H3', name:'Implementación y ajustes de los mecanismos', prod:'Implementación y despliegue', color:'var(--h3)', acts:[
+    {n:12, t:'Implementación M1: PEI 2030', r:'DGD', m:R(0,21)},
+    {n:13, t:'Implementación M2: Gestión de procesos y riesgos', r:'DGD', m:R(3,21)},
+    {n:14, t:'Implementación M3: Aseguramiento de la calidad', r:'DGD', m:R(0,21)},
+    {n:15, t:'Implementación M4: Vinculación con el medio', r:'VRA', m:R(8,21)},
+    {n:16, t:'Implementación M5: I+D', r:'Facultades', m:[24,25,26]},
+  ]},
+  {id:'H4', name:'Cultura de calidad y socialización', prod:'Socialización y capacitación', color:'var(--h4)', acts:[
+    {n:17, t:'Elaborar una estrategia de marketing y comunicaciones', r:'DGD / Dirección de Comunicaciones', m:[15,21,27,33,39,45,51,57]},
+    {n:18, t:'Socialización a nivel central', r:'Rector / VRA', m:[15,21,27,33,39,45,51,57]},
+    {n:19, t:'Socialización a nivel de facultades', r:'Decanaturas / DGD', m:[15,21,27,33,39,45,51,57]},
+    {n:20, t:'Elaborar plan de capacitación por cargo/rol', r:'DGD / DIPER', m:[17,24,36,48]},
+    {n:21, t:'Evaluar incorporación de objetivos de calidad en la evaluación de desempeño (administrativos y planta académica)', r:'VRA / DIPER', m:[17,24,36,48]},
+  ]},
+  {id:'H5', name:'Evaluación del desempeño del sistema', prod:'Evaluación y monitoreo', color:'var(--h5)', acts:[
+    {n:22, t:'Definir el marco de evaluación: automatización e IA en reportes', r:'DGD', m:[14,15,16]},
+    {n:23, t:'Verificar el ciclo de los mecanismos y ajustes', r:'DGD', m:[22,34,46]},
+    {n:24, t:'Evaluación intermedia del plan estratégico y del sistema', r:'Director de Planificación / DGD', m:[29,56]},
+    {n:25, t:'Rendición de cuentas a la comunidad universitaria', r:'Rector / DGD', m:[29,56]},
+    {n:26, t:'Evaluación final del período', r:'Director de Planificación / DGD', m:[57]},
+  ]},
+];
+
+// Detalle Hito 1 (hoja "H1")
+const H1 = [
+  {g:'int', n:1, t:'Informe diagnóstico general del SMCI', d:'Principales brechas en la dimensión Sistema interno de aseguramiento de la calidad', r:'Pedro', u:'Unidad de Gestión de la Calidad', us:'UGC', p:'Revisión documental del SMCI', i:'Diagnóstico de lo que existe actualmente declarado en informes y otras normativas, y brechas nivel 3.', s:'Informe diagnóstico general SMCI', f:'2026-11-30'},
+  {g:'int', n:2, t:'Bench con actores internos de las 3 funciones misionales', d:'Procesos E-A, VcM e Investigación', r:'Fernando / Pedro', u:'Unidad de Gestión de la Calidad', us:'UGC', p:'Angélica Gómez, Natalia Chanfrau, Ximena Concha y equipo, Paloma Aravena y equipo, Carolina Sepúlveda y equipo', i:'Conocer el detalle de los mecanismos de calidad implementados en cada etapa. Diagnóstico de lo que existe actualmente y brechas nivel 3.\nEvaluar si será formato taller o reuniones con cada responsable de función misional.', s:'Bench mecanismos de calidad', f:'2026-12-30'},
+  {g:'int', n:3, t:'Entrevista con autoridades UAH', d:'Expectativas sobre un modelo de aseguramiento de calidad', r:'Fernando / Pedro', u:'Unidad de Gestión de la Calidad', us:'UGC', p:'Antonia Larraín, Cristóbal Madero, Aisen Etcheverry', i:'Conocer la definición de calidad en la UAH y las expectativas de las autoridades para este sistema.', s:'Bench expectativas del modelo de calidad', f:'2026-12-30'},
+  {g:'ext', n:4, t:'Bench con universidades de 6 y 7 años de acreditación nacional y universidades AUSJAL', d:'Modelos, sistemas, políticas y gobernanza', r:'Fernando / Pedro', u:'Unidad de Gestión de la Calidad', us:'UGC', p:'', i:'Modelos, sistemas, políticas y gobernanza. Definición de calidad.', s:'Bench sistemas de calidad internacionales', f:'2026-12-30'},
+  {g:'ext', n:5, t:'Entrevista con expertos externos en calidad', d:'Hallazgos, buenas prácticas y recomendaciones', r:'Caro', u:'Dirección de Gestión y Desarrollo', us:'DGD', p:'Judith Scharager (Directorio UAH), Andrés Bernasconi y/o Renato Bartet (CNA), Claudio Rojas y/o Juan Pablo Lastra (UCM)', i:'Recoger y sistematizar experiencias, buenas prácticas y recomendaciones de expertos externos en aseguramiento de la calidad en educación superior, para identificar oportunidades de fortalecimiento de los mecanismos institucionales.', s:'Informe de sistematización de entrevistas, con principales hallazgos, buenas prácticas y recomendaciones de mejora.', f:'2026-12-30'},
+  {g:'ext', n:6, t:'Cumplimiento de criterios y estándares CNA', d:'Institucionales, de postgrado y de pedagogías', r:'Paula y Pablo', u:'Unidad de Aseguramiento de la Calidad', us:'UAC', p:'', i:'Sistematizar las exigencias aplicables y evaluar su abordaje mediante los mecanismos institucionales existentes, utilizando una clasificación tipo semáforo para identificar cumplimiento y brechas. Incluir las nuevas exigencias de educación a distancia en el ámbito institucional.', s:'Matriz consolidada de cumplimiento y brechas, diferenciada por ámbito institucional, postgrado y pedagogías.', f:'2026-12-30'},
+  {g:'ext', n:7, t:'Brechas y resultados de acreditación de postgrado y pedagogías', d:'Informe integrado de brechas', r:'Paula y Pablo', u:'Unidad de Aseguramiento de la Calidad', us:'UAC', p:'', i:'Sistematizar las debilidades y oportunidades de mejora identificadas en las autoevaluaciones de postgrado. Analizar las resoluciones CNA de pedagogías de 2025, considerando los estándares pedagógicos y disciplinares, los resultados de la Evaluación Nacional Diagnóstica y su relación con los años de acreditación otorgados.', s:'Informe integrado de análisis de brechas y resultados de acreditación, con apartados de postgrado y pedagogías.', f:'2026-12-30'},
+  {g:'ext', n:8, t:'Evaluación del MAPA y de los procesos de autoevaluación', d:'Diagnóstico y propuestas de mejora', r:'Paula y Pablo', u:'Unidad de Aseguramiento de la Calidad', us:'UAC', p:'', i:'Analizar el diseño y funcionamiento del MAPA y el desarrollo de las autoevaluaciones de carreras y programas, identificando fortalezas, limitaciones, etapas, nudos críticos, mecanismos de coordinación y oportunidades de mejora.', s:'Informe de diagnóstico y propuestas de mejora del MAPA y de los procesos de autoevaluación.', f:'2026-12-30'},
+  {g:'ext', n:9, t:'Criterios y estándares CNA para carreras online', d:'Matriz de cumplimiento y brechas', r:'Paula y Pablo', u:'Unidad de Aseguramiento de la Calidad', us:'UAC', p:'', i:'Analizar los Criterios y Estándares de Calidad de la CNA aplicables a las carreras impartidas en modalidad online, evaluando su abordaje mediante los mecanismos institucionales existentes e identificando brechas y oportunidades de mejora en su diseño, implementación y aseguramiento de la calidad.', s:'Matriz de cumplimiento y brechas de los Criterios y Estándares de Calidad de la CNA aplicables a las carreras online.', f:'2026-12-30'},
+];
+
+/* ===================== UTILIDADES ===================== */
+const idxDate = i => { const t = START.m + i; return {y: START.y + Math.floor(t/12), m: t % 12}; };
+const now = new Date();
+const todayIdx = (now.getFullYear()-START.y)*12 + now.getMonth() - START.m + (now.getDate()-1)/new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+document.getElementById('hoyTxt').textContent = now.getDate()+' de '+MONTHS_L[now.getMonth()]+' de '+now.getFullYear();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const runs = m => { const s=[...m].sort((a,b)=>a-b), out=[]; for(const v of s){ const l=out[out.length-1]; if(l && v===l[1]+1) l[1]=v; else out.push([v,v]); } return out; };
+const periodTxt = m => runs(m).map(([a,b])=>{ const A=idxDate(a),B=idxDate(b); const f=d=>MONTHS_L[d.m].slice(0,3)+' '+d.y; return a===b?f(A):f(A)+' – '+f(B); }).join(', ');
+
+/* ===================== FASES (resumen) ===================== */
+(function(){
+  const el = document.getElementById('phases');
+  el.innerHTML = HITOS.map(h=>{
+    const all = h.acts.flatMap(a=>a.m); const a=Math.min(...all), b=Math.max(...all);
+    const ya=idxDate(a).y, yb=idxDate(b).y;
+    return `<div class="phase"><div class="yr">${ya===yb?ya:ya+'–'+yb}</div><div class="hb" style="background:${h.color}">${h.id}</div>
+      <div class="box" style="border-top-color:${h.color}"><b>${esc(h.name)}</b><div><em>${h.acts.length} actividades</em><br><small>${esc(h.prod)}</small></div></div></div>`;
+  }).join('');
+})();
+
+/* ===================== GANTT ===================== */
+const RANGES = { plan:[6,13], '2627':[0,21], all:[0,57] }; // plan de trabajo: sep 2026 – abr 2027
+let range = 'plan', hidden = new Set(), closed = new Set(), q = '';
+
+function cw(){ const [a,b]=RANGES[range]; const n=b-a+1; return n<=10?64:(n<=22?36:22); }
+
+function render(){
+  const [a,b] = RANGES[range]; const n=b-a+1; const W=cw();
+  const tbl = document.getElementById('gtable'); tbl.style.setProperty('--cw', W+'px');
+  // header
+  let yrs=[], cur=null;
+  for(let i=a;i<=b;i++){ const y=idxDate(i).y; if(!cur||cur.y!==y){cur={y,c:0};yrs.push(cur);} cur.c++; }
+  let h = `<thead><tr class="yr"><th class="lab" rowspan="2">Fase / actividad</th><th class="resp" rowspan="2">Responsabilidad</th>${yrs.map(y=>`<th colspan="${y.c}">${y.y}</th>`).join('')}</tr>`;
+  h += `<tr class="mo">${R(a,b).map(i=>`<th>${W>=36?MONTHS[idxDate(i).m]:MONTHS[idxDate(i).m][0]}</th>`).join('')}</tr></thead><tbody>`;
+  const ql = q.trim().toLowerCase();
+  const cells = (cls) => R(a,b).map(i=>`<td class="m${idxDate(i).m===0&&i!==a?' ys':''}${cls||''}"></td>`).join('');
+  for(const ht of HITOS){
+    if(hidden.has(ht.id)) continue;
+    const acts = ht.acts.filter(x=> !ql || (x.t+' '+x.r).toLowerCase().includes(ql));
+    if(ql && !acts.length) continue;
+    const vis = acts.filter(x=>x.m.some(i=>i>=a&&i<=b));
+    const isC = closed.has(ht.id);
+    h += `<tr class="hito${isC?' closed':''}" data-h="${ht.id}"><td class="lab"><span class="tw">▾</span><span class="hbadge" style="background:${ht.color}">${ht.id}</span>${esc(ht.name)}</td><td class="resp">${vis.length}/${acts.length} en periodo</td>${cells()}</tr>`;
+    if(isC) continue;
+    for(const x of acts){
+      h += `<tr class="act" data-h="${ht.id}" data-n="${x.n}"><td class="lab"><span class="an">${x.n}</span>${esc(x.t)}</td><td class="resp">${esc(x.r)}</td>${cells()}</tr>`;
+    }
+  }
+  h += '</tbody>';
+  tbl.innerHTML = h;
+
+  // barras
+  const byN = {}; HITOS.forEach(ht=>ht.acts.forEach(x=>byN[x.n]={...x,h:ht}));
+  tbl.querySelectorAll('tr.act').forEach(tr=>{
+    const x = byN[tr.dataset.n]; const tds = tr.querySelectorAll('td.m');
+    const rs = runs(x.m).filter(([s,e])=>e>=a&&s<=b);
+    const sporadic = runs(x.m).every(([s,e])=>s===e) && x.m.length>1;
+    // línea tenue que une ciclos recurrentes
+    if(sporadic){ const lo=Math.max(Math.min(...x.m),a), hi=Math.min(Math.max(...x.m),b); if(hi>lo){ const sp=document.createElement('i'); sp.className='span'; sp.style.background=x.h.color; sp.style.left=(W/2)+'px'; sp.style.width=((hi-lo)*W)+'px'; tds[lo-a].appendChild(sp);} }
+    rs.forEach(([s,e])=>{
+      const s2=Math.max(s,a), e2=Math.min(e,b);
+      const bar=document.createElement('i'); bar.className='bar'+(s===e?' dot':'');
+      bar.style.background=x.h.color;
+      if(s===e){ bar.style.left=(W/2-7)+'px'; }
+      else { bar.style.left='3px'; bar.style.width=((e2-s2+1)*W-6)+'px'; if(s<a){bar.style.borderTopLeftRadius=bar.style.borderBottomLeftRadius=0;bar.style.left='0';} }
+      bar.dataset.n=x.n;
+      tds[s2-a].appendChild(bar);
+    });
+  });
+  // línea de hoy
+  if(todayIdx>=a && todayIdx<=b+1){
+    const firstRow = tbl.querySelector('tbody tr');
+    const host = document.getElementById('gscroll'); host.style.position='relative';
+    const old = host.querySelector('.today'); if(old) old.remove();
+    const firstCell = tbl.querySelector('thead tr.mo th');
+    if(firstCell){
+      const t=document.createElement('div'); t.className='today';
+      const x0 = firstCell.offsetLeft + (todayIdx-a)*W;
+      t.style.left = x0+'px'; t.style.top = tbl.querySelector('thead').offsetHeight+'px';
+      t.style.height = (tbl.offsetHeight - tbl.querySelector('thead').offsetHeight)+'px'; t.style.bottom='auto';
+      host.appendChild(t);
+    }
+  } else { const old=document.querySelector('#gscroll .today'); if(old) old.remove(); }
+  // scroll al hoy
+  const host=document.getElementById('gscroll'); const fc=tbl.querySelector('thead tr.mo th');
+  if(fc && todayIdx>=a && todayIdx<=b){ host.scrollLeft = Math.max(0, (todayIdx-a)*W - 120); } else host.scrollLeft=0;
+
+  // interacción
+  tbl.querySelectorAll('tr.hito .lab').forEach(td=>td.onclick=()=>{ const id=td.parentElement.dataset.h; closed.has(id)?closed.delete(id):closed.add(id); render(); });
+}
+
+// tooltip
+const tip=document.getElementById('tip');
+document.getElementById('gtable').addEventListener('mousemove',e=>{
+  const tr=e.target.closest('tr.act'); if(!tr){tip.style.opacity=0;return;}
+  let x; HITOS.forEach(h=>h.acts.forEach(a=>{ if(a.n==tr.dataset.n) x={...a,h}; }));
+  tip.innerHTML=`<b>${x.h.id} · ${x.n}. ${esc(x.t)}</b><span>Responsable: ${esc(x.r)}<br>Periodo: ${esc(periodTxt(x.m))}</span>`;
+  tip.style.opacity=1; const px=Math.min(e.clientX+14, window.innerWidth-340); tip.style.left=px+'px'; tip.style.top=(e.clientY+16)+'px';
+});
+document.getElementById('gtable').addEventListener('mouseleave',()=>tip.style.opacity=0);
+
+// controles
+document.getElementById('rangeSeg').onclick=e=>{ const b=e.target.closest('button'); if(!b)return; range=b.dataset.r; document.querySelectorAll('#rangeSeg button').forEach(x=>x.classList.toggle('on',x===b)); render(); };
+document.getElementById('hitoChips').innerHTML = HITOS.map(h=>`<button class="chip" data-h="${h.id}"><i style="background:${h.color}"></i>${h.id}</button>`).join('');
+document.getElementById('hitoChips').onclick=e=>{ const b=e.target.closest('.chip'); if(!b)return; const id=b.dataset.h; hidden.has(id)?hidden.delete(id):hidden.add(id); b.classList.toggle('off'); render(); };
+document.getElementById('q').oninput=e=>{ q=e.target.value; render(); };
+window.addEventListener('resize',()=>render());
+render();
+
+/* ===================== HITO 1 DETALLE ===================== */
+(function(){
+  const day = 864e5; const t0 = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const fmt = s => { const [y,m,d]=s.split('-').map(Number); return d+' '+MONTHS_L[m-1].slice(0,3); };
+  const status = s => { const [y,m,d]=s.split('-').map(Number); const diff=Math.round((new Date(y,m-1,d)-t0)/day);
+    if(diff<0) return `<span class="status st-late">Vencido hace ${-diff} d</span>`;
+    if(diff<=30) return `<span class="status st-run">Vence en ${diff} d</span>`;
+    return `<span class="status st-ok">En ${diff} días</span>`; };
+  const groups = [
+    {g:'int', n:1, h:'Diagnóstico interno', s:'Unidad de Gestión de la Calidad (UGC)'},
+    {g:'ext', n:2, h:'Diagnóstico externo', s:'UGC · UAC · DGD'},
+  ];
+  document.getElementById('h1list').innerHTML = groups.map(G=>`
+    <div class="sub-group"><div class="sub-group-h"><span class="num-dot">${G.n}</span><h3>${G.h}</h3><small>${G.s}</small></div>
+    ${H1.filter(x=>x.g===G.g).map(x=>`
+      <details class="subp"><summary>
+        <span class="n">${String(x.n).padStart(2,'0')}</span>
+        <span class="t"><b>${esc(x.t)}</b><small>${esc(x.d)}</small></span>
+        <span class="u"><b>${esc(x.r)}</b>${x.us}</span>
+        <span class="dl"><b>${fmt(x.f)}</b>${status(x.f)}</span>
+        <span class="chev">›</span>
+      </summary>
+      <div class="body">
+        <div><h6>Propósito</h6><p>${esc(x.i)}</p></div>
+        <div><h6>Subproducto</h6><p>${esc(x.s)}</p>
+          ${x.p?`<h6 style="margin-top:14px">Participantes / insumos</h6><p>${esc(x.p)}</p>`:''}
+          <h6 style="margin-top:14px">Unidad</h6><p>${esc(x.u)}</p></div>
+      </div></details>`).join('')}
+    </div>`).join('');
+  // días al próximo plazo
+  const next = H1.map(x=>x.f).sort().find(f=>{const [y,m,d]=f.split('-').map(Number);return new Date(y,m-1,d)>=t0;});
+  if(next){ const [y,m,d]=next.split('-').map(Number); document.getElementById('daysLeft').textContent=Math.round((new Date(y,m-1,d)-t0)/day);
+    document.getElementById('daysLeftL').textContent='Días al próximo plazo'; document.getElementById('daysLeftS').textContent=d+' de '+MONTHS_L[m-1]+' de '+y; }
+  else { document.getElementById('daysLeft').textContent='✓'; document.getElementById('daysLeftL').textContent='Plazos del Hito 1 cumplidos'; document.getElementById('daysLeftS').textContent=''; }
+})();
+
+/* ===================== CAE: estado según fecha ===================== */
+document.querySelectorAll('.cae-i').forEach(el=>{ const [y,m]=el.dataset.m.split('-').map(Number); const k=y*12+m-1, kn=now.getFullYear()*12+now.getMonth(); el.classList.add(k<kn?'past':(k===kn?'now':'next')); });
+
+/* ===================== NAV activo ===================== */
+const links=[...document.querySelectorAll('.topnav a')];
+const obs=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ links.forEach(l=>l.classList.toggle('on', l.getAttribute('href')==='#'+en.target.id)); } }),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
